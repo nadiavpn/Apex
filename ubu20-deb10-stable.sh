@@ -805,6 +805,13 @@ function menu(){
     mv menu/* /usr/local/sbin
     rm -rf menu
     rm -rf menu.zip
+    wget -q -O /usr/local/sbin/backupx "https://raw.githubusercontent.com/nadiavpn/apex/main/backupx"
+    chmod +x /usr/local/sbin/backupx
+    cat << EOF >>  /etc/crontab
+    # BEGIN_Backup
+    5 0 * * * root backupx
+    # END_Backup
+    EOF
 }
 
 # Membaut Default Menu 
