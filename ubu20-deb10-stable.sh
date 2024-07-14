@@ -1,12 +1,8 @@
 #!/bin/bash
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # System Request : Debian 9+/Ubuntu 18.04+/20+
-# Develovers » snafal
-# Email      » gemilangkinasih@gmail.com
-# telegram   » https://t.me/gemilangkinasih
-# whatsapp   » wa.me/+628984880039
+# Develovers » NadiaVpn
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# snafal
 
 Green="\e[92;1m"
 RED="\033[31m"
@@ -568,12 +564,12 @@ print_success "Limit IP Service"
 function ssh_slow(){
 clear
 # // Installing UDP Mini
-print_install "Memasang modul SlowDNS Server"
-    wget -q -O /tmp/nameserver "${REPO}files/nameserver" >/dev/null 2>&1
-    chmod +x /tmp/nameserver
-    bash /tmp/nameserver | tee /root/install.log
- print_success "SlowDNS"
-}
+#print_install "Memasang modul SlowDNS Server"
+#    wget -q -O /tmp/nameserver "${REPO}files/nameserver" >/dev/null 2>&1
+#    chmod +x /tmp/nameserver
+#    bash /tmp/nameserver | tee /root/install.log
+# print_success "SlowDNS"
+#}
 
 clear
 function ins_SSHD(){
@@ -760,6 +756,15 @@ cd
 apt autoclean -y >/dev/null 2>&1
 apt autoremove -y >/dev/null 2>&1
 print_success "ePro WebSocket Proxy"
+}
+function noobzvpn(){
+clear
+wget "https://raw.githubusercontent.com/nadiavpn/Apex/main/nadiacinta/noobzvpns.zip"
+unzip noobzvpns.zip
+bash install.sh
+rm noobzvpns.zip
+systemctl restart noobzvpns
+print_success "NOOBZVPN"
 }
 
 function ins_restart(){
