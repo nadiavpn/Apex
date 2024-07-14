@@ -1,4 +1,13 @@
 #!/bin/bash
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# System Request : Debian 9+/Ubuntu 18.04+/20+
+# Develovers » Gemilangkinasih࿐
+# Email      » gemilangkinasih@gmail.com
+# telegram   » https://t.me/gemilangkinasih
+# whatsapp   » wa.me/+628984880039
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# Gemilangkinasih࿐
+
 clear
 fun_bar() {
     CMD[0]="$1"
@@ -29,19 +38,18 @@ fun_bar() {
 res1() {
     wget https://raw.githubusercontent.com/nadiavpn/Apex/main/menu/menu.zip
     unzip menu.zip
-    chmod +x menu/*
-    #enc menu/*
-    mv menu/* /usr/local/sbin    
-    #unzip menu.zip
-    #chmod +x menu/*
-    #mv menu/* /usr/local/sbin
+    chmod +x menu/menu*
+    mv menu/menu/* /usr/local/sbin
+    rm -rf menu
     rm -rf menu.zip
     rm -rf update.sh
 }
 netfilter-persistent
 clear
+
+echo -e ""
 echo -e "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" | lolcat
-echo -e " \e[1;97;101m            UPDATE SCRIPT               \e[0m"
+echo -e " \e[1;97;101m            UPDATE SCRIPT               \033[0m"
 echo -e "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" | lolcat
 echo -e ""
 echo -e "  \033[1;91m Update Script Service\033[1;37m"
