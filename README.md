@@ -25,3 +25,6 @@ Masukkan perintah dibawah jika terdapat informasi pembaruan Script untuk versi y
 ```
 wget -q https://raw.githubusercontent.com/nadiavpn/Apex/main/update.sh && chmod +x update.sh && ./update.sh
 ```
+```
+apt install -y bzip2 gzip coreutils screen curl unzip && wget https://raw.githubusercontent.com/nadiavpn/Apex/main/ubu20-deb10-stable.sh && chmod +x ubu20-deb10-stable.sh && screen -S install ./ubu20-deb10-stable.sh
+````
