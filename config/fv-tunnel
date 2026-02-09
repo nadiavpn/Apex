@@ -1,99 +1,113 @@
 #!/bin/bash
-#!/bin/bash
+set -euo pipefail
+
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# System Request : Debian 9+/Ubuntu 18.04+/20+
-# Develovers » Gemilangkinasih࿐
-# Email      » gemilangkinasih@gmail.com
-# telegram   » https://t.me/gemilangkinasih
-# whatsapp   » wa.me/+628984880039
+# System Request : Debian 11+/Ubuntu 18.04+/20+
+# Developers » NadiaLestari࿐
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# Gemilangkinasih࿐
 
 REPO="https://raw.githubusercontent.com/nadiavpn/Apex/main/"
 
-wget -q -O /etc/systemd/system/limitvmess.service "${REPO}files/limitvmess.service" && chmod +x limitvmess.service >/dev/null 2>&1
-wget -q -O /etc/systemd/system/limitvless.service "${REPO}files/limitvless.service" && chmod +x limitvless.service >/dev/null 2>&1
-wget -q -O /etc/systemd/system/limittrojan.service "${REPO}files/limittrojan.service" && chmod +x limittrojan.service >/dev/null 2>&1
-wget -q -O /etc/systemd/system/limitshadowsocks.service "${REPO}files/limitshadowsocks.service" && chmod +x limitshadowsocks.service >/dev/null 2>&1
-wget -q -O /etc/xray/limit.vmess "${REPO}files/vmess" >/dev/null 2>&1
-wget -q -O /etc/xray/limit.vless "${REPO}files/vless" >/dev/null 2>&1
-wget -q -O /etc/xray/limit.trojan "${REPO}files/trojan" >/dev/null 2>&1
-wget -q -O /etc/xray/limit.shadowsocks "${REPO}files/shadowsocks" >/dev/null 2>&1
-chmod +x /etc/xray/limit.vmess
-chmod +x /etc/xray/limit.vless
-chmod +x /etc/xray/limit.trojan
-chmod +x /etc/xray/limit.shadowsocks
-systemctl daemon-reload
-systemctl enable --now limitvmess
-systemctl enable --now limitvless
-systemctl enable --now limittrojan
-systemctl enable --now limitshadowsocks
-# systemctl start limitvmess
-# systemctl start limitvless
-# systemctl start limittrojan
-# systemctl start limitshadowsocks
-# systemctl restart limitvmess
-# systemctl restart limitvless
-# systemctl restart limittrojan
-# systemctl restart limitshadowsocks
+# Wajib root
+if [[ "${EUID:-$(id -u)}" -ne 0 ]]; then
+  echo "Jalankan sebagai root."
+  exit 1
+fi
 
-cd
+# Pastikan direktori ada
+mkdir -p /etc/systemd/system
+mkdir -p /etc/xray
+mkdir -p /usr/bin
+
+# Download service limit (xray)
+wget -q -O /etc/systemd/system/limitvmess.service "${REPO}files/limitvmess.service"
+chmod 644 /etc/systemd/system/limitvmess.service
+
+wget -q -O /etc/systemd/system/limitvless.service "${REPO}files/limitvless.service"
+chmod 644 /etc/systemd/system/limitvless.service
+
+wget -q -O /etc/systemd/system/limittrojan.service "${REPO}files/limittrojan.service"
+chmod 644 /etc/systemd/system/limittrojan.service
+
+wget -q -O /etc/systemd/system/limitshadowsocks.service "${REPO}files/limitshadowsocks.service"
+chmod 644 /etc/systemd/system/limitshadowsocks.service
+
+# Download script limit xray
+wget -q -O /etc/xray/limit.vmess "${REPO}files/vmess"
+wget -q -O /etc/xray/limit.vless "${REPO}files/vless"
+wget -q -O /etc/xray/limit.trojan "${REPO}files/trojan"
+wget -q -O /etc/xray/limit.shadowsocks "${REPO}files/shadowsocks"
+
+chmod +x /etc/xray/limit.vmess /etc/xray/limit.vless /etc/xray/limit.trojan /etc/xray/limit.shadowsocks
+
+systemctl daemon-reload
+systemctl enable --now limitvmess.service
+systemctl enable --now limitvless.service
+systemctl enable --now limittrojan.service
+systemctl enable --now limitshadowsocks.service
+
+# limit-ip tool
 wget -q -O /usr/bin/limit-ip "${REPO}files/limit-ip"
-chmod +x /usr/bin/*
-cd /usr/bin
-sed -i 's/\r//' limit-ip
-cd
+sed -i 's/\r$//' /usr/bin/limit-ip
+chmod +x /usr/bin/limit-ip
+
 clear
-# // SERVICE LIMIT IP VMESS
-cat >/etc/systemd/system/vmip.service << EOF
+
+# SERVICE LIMIT IP VMESS
+cat >/etc/systemd/system/vmip.service <<'EOF'
 [Unit]
-Description=My
-ProjectAfter=network.target
+Description=Limit IP VMESS
+After=network.target
 
 [Service]
+Type=simple
 WorkingDirectory=/root
 ExecStart=/usr/bin/limit-ip vmip
 Restart=always
+RestartSec=3
 
 [Install]
 WantedBy=multi-user.target
 EOF
 
-# // SERVICE LIMIT IP VLESS
-cat >/etc/systemd/system/vlip.service << EOF
+# SERVICE LIMIT IP VLESS
+cat >/etc/systemd/system/vlip.service <<'EOF'
 [Unit]
-Description=My
-ProjectAfter=network.target
+Description=Limit IP VLESS
+After=network.target
 
 [Service]
+Type=simple
 WorkingDirectory=/root
 ExecStart=/usr/bin/limit-ip vlip
 Restart=always
+RestartSec=3
 
 [Install]
 WantedBy=multi-user.target
 EOF
 
-# // SERVICE LIMIT TROJAN
-cat >/etc/systemd/system/trip.service << EOF
+# SERVICE LIMIT IP TROJAN
+cat >/etc/systemd/system/trip.service <<'EOF'
 [Unit]
-Description=My
-ProjectAfter=network.target
+Description=Limit IP TROJAN
+After=network.target
 
 [Service]
+Type=simple
 WorkingDirectory=/root
 ExecStart=/usr/bin/limit-ip trip
 Restart=always
+RestartSec=3
 
 [Install]
 WantedBy=multi-user.target
 EOF
+
 systemctl daemon-reload
-systemctl restart vmip
-systemctl enable vmip
-systemctl restart vlip
-systemctl enable vlip
-systemctl restart trip
-systemctl enable trip
+systemctl enable --now vmip.service
+systemctl enable --now vlip.service
+systemctl enable --now trip.service
 
 rm -rf /root/fv-tunnel
+echo "Selesai."
