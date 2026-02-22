@@ -18,4 +18,3 @@ apt install -y curl wget ca-certificates unzip gnupg lsb-release coreutils
 wget -q https://raw.githubusercontent.com/nadiavpn/Apex/main/ubu20-deb10-stable.sh
 chmod +x ubu20-deb10-stable.sh
 ./ubu20-deb10-stable.sh
-... 
