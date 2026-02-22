@@ -19,9 +19,3 @@ wget -q https://raw.githubusercontent.com/nadiavpn/Apex/main/ubu20-deb10-stable.
 chmod +x ubu20-deb10-stable.sh
 ./ubu20-deb10-stable.sh
 ... 
-
-## `WAJIB IZIN IP, SILAHKAN HUBUNGI ADMIN !`
-Nadia :
-<br><br><a href="https://wa.me/+6285973781816" target=”_blank”><img src="https://img.shields.io/static/v1?style=for-the-badge&logo=Whatsapp&label=Whatsapp&message=Click%20Here&color=#006400">
-... 
-
